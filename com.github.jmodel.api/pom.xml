@@ -13,7 +13,7 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<name>jmodel API</name>
-	<url>http://www.github.com/jianni/jmodel</url>
+	<url>http://www.github.com/jmodel/jmodel</url>
 
 	<build>
 		<plugins>
