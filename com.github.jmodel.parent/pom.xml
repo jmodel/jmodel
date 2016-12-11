@@ -21,10 +21,27 @@
 				analyze framework to parse source object in various formats like
 				JSON, XML, BEAN, or any format you want.  </description>
 
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>nijian</name>
+			<email>jianni@hotmail.com</email>
+			<organization>com.github.jmodel</organization>
+			<organizationUrl>https://github.com/jmodel</organizationUrl>
+		</developer>
+	</developers>
+
 	<scm>
 		<url>https://github.com/jmodel/jmodel.git</url>
-		<connection>scm:git:git@github.com:jmodel/jmodel.git</connection>
-		<developerConnection>scm:git:git@github.com:jmodel/jmodel.git</developerConnection>
+		<connection>scm:git:git@github.com/jmodel/jmodel.git</connection>
+		<developerConnection>scm:git:git@github.com/jmodel/jmodel.git</developerConnection>
+		<tag>0.0.1</tag>
 	</scm>
 
 	<properties>
@@ -37,8 +54,19 @@
 		<org.apache.commons.version>3.4</org.apache.commons.version>
 		<maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
 		<maven.source.plugin.version>3.0.1</maven.source.plugin.version>
-
+		<maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
 	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
@@ -189,12 +217,39 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
