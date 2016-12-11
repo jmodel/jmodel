@@ -15,19 +15,6 @@
 	<name>jmodel API</name>
 	<url>http://www.github.com/jmodel/jmodel</url>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-				<configuration>
-					<compilerArguments>
-						<properties>${project.basedir}/.settings/org.eclipse.jdt.core.prefs</properties>
-					</compilerArguments>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
 
 

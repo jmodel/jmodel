@@ -24,9 +24,13 @@ public abstract class AbstractAnalyzer<T> implements Analyzer {
 	 * Set the value of fields for a model.
 	 * 
 	 * @param sourceModel
+	 *            source model
 	 * @param fieldPathMap
+	 *            help to set value
 	 * @param modelPathMap
+	 *            help to set value
 	 * @param node
+	 *            a node
 	 */
 	protected void setValueOfFields(final Model sourceModel, final Map<String, Field> fieldPathMap,
 			final Map<String, Model> modelPathMap, final T node) {
@@ -111,9 +115,15 @@ public abstract class AbstractAnalyzer<T> implements Analyzer {
 	 * Model will be built base on source object.
 	 * 
 	 * @param sourceModel
+	 *            source model
 	 * @param fieldPathMap
+	 *            help to set value
 	 * @param modelPathMap
+	 *            help to set value
+	 * @param nodeName
+	 *            the name of node
 	 * @param node
+	 *            a node
 	 */
 	protected abstract void buildModel(final Model sourceModel, final Map<String, Field> fieldPathMap,
 			final Map<String, Model> modelPathMap, final String nodeName, final T node);
@@ -122,7 +132,9 @@ public abstract class AbstractAnalyzer<T> implements Analyzer {
 	 * Different ways to set value for different model, e.g. JSON, XML
 	 * 
 	 * @param sourceNode
+	 *            source node
 	 * @param field
+	 *            a field
 	 */
 	protected abstract void setFieldValue(final T sourceNode, final Field field);
 

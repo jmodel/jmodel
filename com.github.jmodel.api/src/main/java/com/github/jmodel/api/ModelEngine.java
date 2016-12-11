@@ -8,8 +8,10 @@ public interface ModelEngine {
 	 * Build a generic model.
 	 * 
 	 * @param sourceObj
+	 *            source object
 	 * @param format
-	 * @return
+	 *            format
+	 * @return Model
 	 */
 	public Model construct(Object sourceObj, FormatEnum format);
 
@@ -19,8 +21,10 @@ public interface ModelEngine {
 	 * Set the value of fields for an existing generic model.
 	 * 
 	 * @param sourceObj
+	 *            source object
 	 * @param format
-	 * @return
+	 *            format
+	 * @return Model
 	 */
 	public Model fill(Model sourceModel, Object sourceObj, FormatEnum format);
 

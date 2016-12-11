@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>com.github.jmodel</groupId>
 			<artifactId>com.github.jmodel.api</artifactId>
-			<version>0.0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 

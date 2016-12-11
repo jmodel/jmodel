@@ -13,6 +13,18 @@
 	<modules>
 		<module>../com.github.jmodel.api</module>
 		<module>../com.github.jmodel.impl</module>
+		<module>
+			../../jmodel-mapper/com.github.jmodel.mapper.api
+		</module>
+		<module>
+			../../jmodel-mapper/com.github.jmodel.mapper.impl
+		</module>
+		<module>
+			../../jmodel-validation/com.github.jmodel.validation.api
+		</module>
+		<module>
+			../../jmodel-validation/com.github.jmodel.validation.impl
+		</module>
 	</modules>
 
 	<url>https://github.com/jmodel/jmodel</url>
@@ -56,6 +68,23 @@
 		<maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 		<maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>eclipse</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/neon/</url>
+		</repository>
+		<repository>
+			<id>ossrh1</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>ossrh2</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		
+	</repositories>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -168,7 +197,11 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
-
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
