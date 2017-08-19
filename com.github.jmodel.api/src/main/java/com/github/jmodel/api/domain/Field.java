@@ -1,10 +1,12 @@
-package com.github.jmodel.impl;
+package com.github.jmodel.api.domain;
 
-import com.github.jmodel.api.DataTypeEnum;
-import com.github.jmodel.api.Entity;
-import com.github.jmodel.api.Field;
-
-public class FieldImpl implements Field {
+/**
+ * Field.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public class Field {
 
 	private String name;
 
@@ -68,10 +70,10 @@ public class FieldImpl implements Field {
 	}
 
 	public Field clone() {
-		Field clonedField = new FieldImpl();
+		Field clonedField = new Field();
 		clonedField.setName(this.getName() + "");
-//		clonedField.setDataType(this.getDataType());
-//		clonedField.setFormatString(this.getFormatString() + "");
+		// clonedField.setDataType(this.getDataType());
+		// clonedField.setFormatString(this.getFormatString() + "");
 
 		return clonedField;
 	}

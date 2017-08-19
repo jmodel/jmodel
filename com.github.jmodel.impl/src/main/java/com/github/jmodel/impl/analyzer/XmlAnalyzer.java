@@ -1,47 +1,36 @@
-package com.github.jmodel.impl.analyzers;
+package com.github.jmodel.impl.analyzer;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.github.jmodel.api.Field;
-import com.github.jmodel.api.IllegalException;
-import com.github.jmodel.api.Model;
-import com.github.jmodel.impl.AbstractAnalyzer;
+import com.github.jmodel.ModelException;
+import com.github.jmodel.api.analyzer.Analyzer;
+import com.github.jmodel.api.domain.Entity;
+import com.github.jmodel.api.domain.Field;
+import com.github.jmodel.api.domain.Model;
 
-public class XmlAnalyzer extends AbstractAnalyzer<Element> {
+/**
+ * Xml analyzer.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public class XmlAnalyzer extends Analyzer<Element> {
 
-	public <T> Model process(Model sourceModel, T sourceObject, Boolean isConstruction) {
-		try {
-			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			Document document;
-			if (sourceObject instanceof String) {
-				document = builder.parse(new ByteArrayInputStream(((String) sourceObject).getBytes()));
-			} else if (sourceObject instanceof InputStream) {
-				document = builder.parse((InputStream) sourceObject);
-			} else {
-				throw new IllegalException("xxxx");
-			}
-			build(sourceModel, new HashMap<String, Field>(), new HashMap<String, Model>(),
-					document.getDocumentElement(), isConstruction);
-			return sourceModel;
-		} catch (Exception e) {
-			throw new IllegalException("xxxxx");
-		}
+	@Override
+	public Model build(Element sourceObject, String modelName) throws ModelException {
+		Model model = new Entity();
+		buildModel(model, new HashMap<String, Field>(), new HashMap<String, Model>(), "", sourceObject);
+		return model;
 	}
 
 	@Override

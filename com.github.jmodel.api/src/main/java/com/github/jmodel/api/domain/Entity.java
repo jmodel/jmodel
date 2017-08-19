@@ -1,13 +1,15 @@
-package com.github.jmodel.impl;
+package com.github.jmodel.api.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.jmodel.api.Entity;
-import com.github.jmodel.api.Field;
-import com.github.jmodel.api.Model;
-
-public class EntityImpl extends ModelImpl implements Entity {
+/**
+ * Entity
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public class Entity extends Model {
 
 	private List<Field> fields = new ArrayList<Field>();
 
@@ -30,7 +32,7 @@ public class EntityImpl extends ModelImpl implements Entity {
 
 	@Override
 	public Model clone() {
-		Entity clonedEntity = new EntityImpl();
+		Entity clonedEntity = new Entity();
 
 		clonedEntity.setName(this.getName() + "");
 		clonedEntity.setRecursive(this.isRecursive());

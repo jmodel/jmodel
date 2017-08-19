@@ -1,78 +1,32 @@
-package com.github.jmodel.impl.analyzers;
+package com.github.jmodel.impl.analyzer;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.jmodel.api.Array;
-import com.github.jmodel.api.Entity;
-import com.github.jmodel.api.Field;
-import com.github.jmodel.api.IllegalException;
-import com.github.jmodel.api.Model;
-import com.github.jmodel.impl.AbstractAnalyzer;
-import com.github.jmodel.impl.ArrayImpl;
-import com.github.jmodel.impl.EntityImpl;
-import com.github.jmodel.impl.FieldImpl;
+import com.github.jmodel.ModelException;
+import com.github.jmodel.api.analyzer.Analyzer;
+import com.github.jmodel.api.domain.Array;
+import com.github.jmodel.api.domain.Entity;
+import com.github.jmodel.api.domain.Field;
+import com.github.jmodel.api.domain.Model;
 
-public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
-
-	public <T> Model process(Model sourceModel, T sourceObject, Boolean isConstruction) {
-		JsonNode jsonNode;
-		if (sourceObject instanceof JsonNode) {
-			jsonNode = (JsonNode) sourceObject;
-		} else {
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				if (sourceObject instanceof String) {
-					jsonNode = mapper.readTree((String) sourceObject);
-				} else if (sourceObject instanceof File) {
-					jsonNode = mapper.readTree((File) sourceObject);
-				} else if (sourceObject instanceof InputStream) {
-					jsonNode = mapper.readTree((InputStream) sourceObject);
-				} else {
-					throw new IllegalException("source object is illegal");
-				}
-			} catch (Exception e) {
-				throw new IllegalException("source object is illegal");
-			}
-		}
-		build(sourceModel, new HashMap<String, Field>(), new HashMap<String, Model>(), jsonNode, isConstruction);
-		return sourceModel;
-	}
+/**
+ * Json analyzer.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public class JsonAnalyzer extends Analyzer<JsonNode> {
 
 	@Override
-	protected void setFieldValue(JsonNode jsonNode, Field field) {
-		JsonNode node = jsonNode.path(field.getName());
-		field.setValue(node.asText());
-	}
-
-	@Override
-	protected JsonNode getSubNode(JsonNode node, String subNodeName) {
-		return node.path(subNodeName);
-	}
-
-	@Override
-	protected void populateSubModel(JsonNode subNode, Model subModel, Model subSubModel) {
-		for (int i = 0; i < subNode.size(); i++) {
-			JsonNode subSubJsonNode = subNode.get(i);
-
-			Model clonedSubSubModel = null;
-			if (i == 0) {
-				clonedSubSubModel = subSubModel;
-			} else {
-				clonedSubSubModel = subSubModel.clone();
-				subModel.getSubModels().add(clonedSubSubModel);
-			}
-			clonedSubSubModel.setModelPath(subModel.getModelPath() + "." + clonedSubSubModel.getName() + "[" + i + "]");
-			clonedSubSubModel.setFieldPathMap(subModel.getFieldPathMap());
-
-			setValueOfFields(clonedSubSubModel, subModel.getFieldPathMap(), subModel.getModelPathMap(), subSubJsonNode);
-		}
+	public Model build(JsonNode sourceObject, String modelName) throws ModelException {
+		Model model = new Entity();
+		model.setName(modelName);
+		buildModel(model, new HashMap<String, Field>(), new HashMap<String, Model>(), "", sourceObject);
+		return model;
 	}
 
 	@Override
@@ -94,7 +48,7 @@ public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
 						buildModel(sourceModel, sourceModel.getFieldPathMap(), sourceModel.getModelPathMap(),
 								subNode.getKey(), subNode.getValue());
 					} else {
-						Field field = new FieldImpl();
+						Field field = new Field();
 						field.setName(subNode.getKey());
 						field.setValue(subNode.getValue().asText());
 						field.setParentEntity((Entity) sourceModel);
@@ -103,7 +57,7 @@ public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
 					}
 				});
 			} else {
-				final Entity entity = new EntityImpl();
+				final Entity entity = new Entity();
 				entity.setName(nodeName);
 				if (sourceModel instanceof Array) {
 					int subModelsCount = sourceModel.getSubModels().size();
@@ -129,7 +83,7 @@ public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
 						buildModel(entity, entity.getFieldPathMap(), entity.getModelPathMap(), subNode.getKey(),
 								subNode.getValue());
 					} else {
-						Field field = new FieldImpl();
+						Field field = new Field();
 						field.setName(subNode.getKey());
 						field.setValue(subNode.getValue().asText());
 						field.setParentEntity(entity);
@@ -142,7 +96,7 @@ public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
 		} else if (node.isArray()) {
 			ArrayNode arrayNode = (ArrayNode) node;
 
-			final Array array = new ArrayImpl();
+			final Array array = new Array();
 			array.setName(nodeName);
 			array.setModelPath(sourceModel.getModelPath() + "." + array.getName() + "[]");
 			array.setParentModel(sourceModel);
@@ -156,4 +110,41 @@ public class JsonAnalyzer extends AbstractAnalyzer<JsonNode> {
 			});
 		}
 	}
+
+	@Override
+	protected void setFieldValue(JsonNode jsonNode, Field field) {
+		JsonNode node = jsonNode.get(field.getName());
+		if (node == null) {
+			field.setValue(null);
+		} else {
+			field.setValue(node.asText());
+		}
+
+	}
+
+	@Override
+	protected JsonNode getSubNode(JsonNode node, String subNodeName) {
+		return node.path(subNodeName);
+	}
+
+	@Override
+	protected void populateSubModel(JsonNode subNode, Model subModel, Model subSubModel) throws ModelException {
+		
+		for (int i = 0; i < subNode.size(); i++) {
+			JsonNode subSubJsonNode = subNode.get(i);
+
+			Model clonedSubSubModel = null;
+			if (i == 0) {
+				clonedSubSubModel = subSubModel;
+			} else {
+				clonedSubSubModel = subSubModel.clone();
+				subModel.getSubModels().add(clonedSubSubModel);
+			}
+			clonedSubSubModel.setModelPath(subModel.getModelPath() + "." + clonedSubSubModel.getName() + "[" + i + "]");
+			clonedSubSubModel.setFieldPathMap(subModel.getFieldPathMap());
+
+			setValueOfFields(clonedSubSubModel, subModel.getFieldPathMap(), subModel.getModelPathMap(), subSubJsonNode);
+		}
+	}
+
 }

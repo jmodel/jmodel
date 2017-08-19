@@ -1,15 +1,17 @@
-package com.github.jmodel.impl;
+package com.github.jmodel.api.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.jmodel.api.Entity;
-import com.github.jmodel.api.Field;
-import com.github.jmodel.api.Model;
-
-public abstract class ModelImpl implements Model {
+/**
+ * Generic model.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public abstract class Model {
 
 	private String name;
 
@@ -144,5 +146,4 @@ public abstract class ModelImpl implements Model {
 	}
 
 	public abstract Model clone();
-
 }

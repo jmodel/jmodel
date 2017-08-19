@@ -1,16 +1,19 @@
-package com.github.jmodel.impl;
+package com.github.jmodel.api.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.jmodel.api.Array;
-import com.github.jmodel.api.Model;
-
-public class ArrayImpl extends ModelImpl implements Array {
+/**
+ * Array.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
+public class Array extends Model {
 
 	@Override
 	public Model clone() {
-		Array clonedArray = new ArrayImpl();
+		Array clonedArray = new Array();
 		clonedArray.setName(this.getName() + "");
 		clonedArray.setRecursive(this.isRecursive());
 
@@ -27,5 +30,4 @@ public class ArrayImpl extends ModelImpl implements Array {
 
 		return clonedArray;
 	}
-
 }

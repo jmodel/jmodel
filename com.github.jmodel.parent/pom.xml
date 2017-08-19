@@ -5,7 +5,7 @@
 
 	<groupId>com.github.jmodel</groupId>
 	<artifactId>com.github.jmodel.parent</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>pom</packaging>
 
 	<name>jmodel Parent</name>
@@ -13,25 +13,13 @@
 	<modules>
 		<module>../com.github.jmodel.api</module>
 		<module>../com.github.jmodel.impl</module>
-		<module>
-			../../jmodel-mapper/com.github.jmodel.mapper.api
-		</module>
-		<module>
-			../../jmodel-mapper/com.github.jmodel.mapper.impl
-		</module>
-		<module>
-			../../jmodel-validation/com.github.jmodel.validation.api
-		</module>
-		<module>
-			../../jmodel-validation/com.github.jmodel.validation.impl
-		</module>
 	</modules>
 
 	<url>https://github.com/jmodel/jmodel</url>
 	<description>jmodel provides a simple generic model which is composed
 				of Model (abstract), Entity, Array, Field, along with an extensible
 				analyze framework to parse source object in various formats like
-				JSON, XML, BEAN, or any format you want.  </description>
+				JSON, XML, or any format you want.  </description>
 
 	<licenses>
 		<license>
@@ -53,28 +41,23 @@
 		<url>https://github.com/jmodel/jmodel.git</url>
 		<connection>scm:git:git@github.com/jmodel/jmodel.git</connection>
 		<developerConnection>scm:git:git@github.com/jmodel/jmodel.git</developerConnection>
-		<tag>0.0.1</tag>
+		<tag>0.0.2</tag>
 	</scm>
 
 	<properties>
-		<tycho-version>0.25.0</tycho-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xtext.version>2.9.0</xtext.version>
 		<junit.version>4.12</junit.version>
 		<jdk.version>1.8</jdk.version>
 		<jackson.version>2.6.1</jackson.version>
-		<org.apache.commons.version>3.4</org.apache.commons.version>
+		<org.apache.commons.lang3.version>3.4</org.apache.commons.lang3.version>
+		<org.apache.commons.pool.version>2.4.2</org.apache.commons.pool.version>
+		<org.apache.commons.io.version>2.5</org.apache.commons.io.version>
 		<maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
 		<maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 		<maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>eclipse</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/neon/</url>
-		</repository>
 		<repository>
 			<id>ossrh1</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -83,7 +66,6 @@
 			<id>ossrh2</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
-		
 	</repositories>
 
 	<distributionManagement>
@@ -112,7 +94,17 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>${org.apache.commons.version}</version>
+				<version>${org.apache.commons.lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${org.apache.commons.io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>${org.apache.commons.pool.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -120,170 +112,60 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
 				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven.source.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven.javadoc.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
 					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-clean-plugin
-										</artifactId>
-										<versionRange>
-											[2.5,)
-										</versionRange>
-										<goals>
-											<goal>clean</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.eclipse.tycho
-										</groupId>
-										<artifactId>
-											tycho-compiler-plugin
-										</artifactId>
-										<versionRange>
-											[0.24.0,)
-										</versionRange>
-										<goals>
-											<goal>compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.eclipse.tycho
-										</groupId>
-										<artifactId>
-											tycho-packaging-plugin
-										</artifactId>
-										<versionRange>
-											[0.24.0,)
-										</versionRange>
-										<goals>
-											<goal>build-qualifier</goal>
-											<goal>
-												build-qualifier-aggregator
-											</goal>
-											<goal>validate-id</goal>
-											<goal>
-												validate-version
-											</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-compiler-plugin</artifactId>
-					<version>${tycho-version}</version>
-				</plugin>
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId> 
+					<version>1.5</version> <executions> <execution> <id>sign-artifacts</id> <phase>verify</phase> 
+					<goals> <goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 			</plugins>
 		</pluginManagement>
 
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<environments>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven.source.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven.javadoc.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.plugin.version}</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId> 
+				</plugin> -->
 		</plugins>
 	</build>
 

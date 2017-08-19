@@ -1,11 +1,18 @@
-package com.github.jmodel.api;
+package com.github.jmodel.api.analyzer;
 
 import java.util.Iterator;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
+import com.github.jmodel.FormatEnum;
 import com.github.jmodel.spi.AnalyzerFactory;
 
+/**
+ * Analyzer factory service.
+ * 
+ * @author jianni@hotmail.com
+ *
+ */
 public class AnalyzerFactoryService {
 
 	private static AnalyzerFactoryService service;
@@ -22,8 +29,8 @@ public class AnalyzerFactoryService {
 		return service;
 	}
 
-	public Analyzer getAnalyzer(FormatEnum format, String extendAnalyzerName) {
-		Analyzer analyzer = null;
+	public Analyzer<?> getAnalyzer(FormatEnum format, String extendAnalyzerName) {
+		Analyzer<?> analyzer = null;
 
 		try {
 			Iterator<AnalyzerFactory> analyzerFactorys = loader.iterator();
