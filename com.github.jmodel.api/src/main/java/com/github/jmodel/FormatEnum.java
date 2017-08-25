@@ -1,8 +1,8 @@
 package com.github.jmodel;
 
 /**
- * Format enumeration is used to find appropriate analyzer. XML and JSON is
- * build-in format because the both are very popular.
+ * Format enumeration. XML and JSON is build-in format because the both are very
+ * popular.
  * <p>
  * Actually, the input object could be in various format, e.g. build generic
  * model from JSON, the data format could be file, string, inputstream, etc. For

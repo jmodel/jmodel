@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class Entity extends Model {
 
+	private static final long serialVersionUID = 6325725596875241298L;
+
 	private List<Field> fields = new ArrayList<Field>();
 
 	public List<Field> getFields() {
@@ -22,12 +24,7 @@ public class Entity extends Model {
 	}
 
 	public Field getField(String fieldName) {
-		for (Field field : fields) {
-			if (field.getName().equals(fieldName)) {
-				return field;
-			}
-		}
-		return null;
+		return fields.stream().filter(item -> item.getName().equals(fieldName)).findFirst().orElse(null);
 	}
 
 	@Override

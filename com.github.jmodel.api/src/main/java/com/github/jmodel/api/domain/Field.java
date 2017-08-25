@@ -1,15 +1,25 @@
 package com.github.jmodel.api.domain;
 
+import java.io.Serializable;
+
 /**
- * Field.
+ * Field of {@code Entity}.
  * 
  * @author jianni@hotmail.com
  *
  */
-public class Field {
+public class Field implements Serializable, Cloneable {
 
+	private static final long serialVersionUID = -1071826668427667037L;
+
+	/**
+	 * Field name
+	 */
 	private String name;
 
+	/**
+	 * Field value
+	 */
 	private String value;
 
 	private DataTypeEnum dataType;

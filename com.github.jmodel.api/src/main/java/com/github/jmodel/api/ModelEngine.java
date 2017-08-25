@@ -54,7 +54,7 @@ public interface ModelEngine {
 	public Analyzer<?> getAnalyzer() throws ModelException;
 
 	/**
-	 * set model engine factory
+	 * Set model engine factory
 	 * 
 	 * @param modelEngineFactory
 	 *            model engine factory
@@ -64,7 +64,7 @@ public interface ModelEngine {
 	public void setModelEngineFactory(ModelEngineFactory modelEngineFactory) throws ModelException;
 
 	/**
-	 * get model engine factory
+	 * Get model engine factory
 	 * 
 	 * @return ModelEngineFactory
 	 * @throws ModelException

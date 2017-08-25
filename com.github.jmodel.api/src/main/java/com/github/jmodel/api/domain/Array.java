@@ -11,8 +11,11 @@ import java.util.List;
  */
 public class Array extends Model {
 
+	private static final long serialVersionUID = 8954603537368690081L;
+
 	@Override
 	public Model clone() {
+		
 		Array clonedArray = new Array();
 		clonedArray.setName(this.getName() + "");
 		clonedArray.setRecursive(this.isRecursive());

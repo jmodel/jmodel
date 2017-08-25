@@ -22,6 +22,9 @@ import com.github.jmodel.spi.ModelEngineFactory;
  */
 public class ModelEngineFactoryService {
 
+	/**
+	 * JDK Logger
+	 */
 	private final static Logger logger = Logger.getLogger(ModelEngineFactoryService.class.getName());
 
 	private static ModelEngineFactoryService service;

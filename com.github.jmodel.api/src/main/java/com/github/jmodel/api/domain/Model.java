@@ -1,29 +1,50 @@
 package com.github.jmodel.api.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Generic model.
+ * Abstract class for generic model. Generic model is used to describe various
+ * object. In other words, it is a kind of meta-model. The purpose of desining
+ * this meta-model is just for model mapping, model validation, and so on.
+ * <p>
+ * Generic model is very simple, no runtime container is required. It is kind of
+ * like json which is simple but enought to solve most of data representation
+ * requirements.
  * 
  * @author jianni@hotmail.com
  *
  */
-public abstract class Model {
+public abstract class Model implements Serializable, Cloneable {
 
+	private static final long serialVersionUID = 6050782423552452936L;
+
+	/**
+	 * Model name
+	 */
 	private String name;
+
+	/**
+	 * Model path
+	 */
+	private String modelPath;
+
+	/**
+	 * Parent model
+	 */
+	private Model parentModel;
+
+	/**
+	 * Sub model list
+	 */
+	private List<Model> subModels = new ArrayList<Model>();
 
 	private boolean isRecursive;
 
-	private String modelPath;
-
-	private Model parentModel;
-
 	private boolean isUsed = false;
-
-	private List<Model> subModels = new ArrayList<Model>();
 
 	private Map<String, Field> fieldPathMap = new HashMap<String, Field>();
 
@@ -144,6 +165,7 @@ public abstract class Model {
 			}
 		}
 	}
-
+	
+	@Override
 	public abstract Model clone();
 }

@@ -26,19 +26,25 @@ public class JsonModelEngine extends AbstractModelEngine {
 	@Override
 	public <T> Model build(T sourceObj, String modelName) throws ModelException {
 
-		return getAnalyzer().build((JsonNode) sourceObj, modelName);
-
-		// throw new ModelException("not json node type");
-
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = (JsonNode) sourceObj;
+		} catch (ClassCastException e) {
+			throw new ModelException("JsonNode object is required", e);
+		}
+		return getAnalyzer().build(jsonNode, modelName);
 	}
 
 	@Override
 	public <T> void update(Model model, T sourceObj) throws ModelException {
 
-		getAnalyzer().update(model, (JsonNode) sourceObj);
-
-		// throw new ModelException("not json node type");
-
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = (JsonNode) sourceObj;
+		} catch (ClassCastException e) {
+			throw new ModelException("JsonNode object is required", e);
+		}
+		getAnalyzer().update(model, jsonNode);
 	}
 
 	@Override
