@@ -129,7 +129,7 @@ public class JsonAnalyzer extends Analyzer<JsonNode> {
 
 	@Override
 	protected void populateSubModel(JsonNode subNode, Model subModel, Model subSubModel) throws ModelException {
-		
+
 		for (int i = 0; i < subNode.size(); i++) {
 			JsonNode subSubJsonNode = subNode.get(i);
 
@@ -137,8 +137,17 @@ public class JsonAnalyzer extends Analyzer<JsonNode> {
 			if (i == 0) {
 				clonedSubSubModel = subSubModel;
 			} else {
-				clonedSubSubModel = subSubModel.clone();
-				subModel.getSubModels().add(clonedSubSubModel);
+				try {
+					clonedSubSubModel = subModel.getSubModels().get(i);
+				} catch (Exception e) {
+				}
+				if (clonedSubSubModel == null) {
+					clonedSubSubModel = subSubModel.clone();
+					subModel.getSubModels().add(clonedSubSubModel);
+				} else {
+					clonedSubSubModel.setParentModel(subModel);
+				}
+
 			}
 			clonedSubSubModel.setModelPath(subModel.getModelPath() + "." + clonedSubSubModel.getName() + "[" + i + "]");
 			clonedSubSubModel.setFieldPathMap(subModel.getFieldPathMap());
