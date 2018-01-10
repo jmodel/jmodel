@@ -11,9 +11,14 @@ import com.github.jmodel.config.Configurable;
  * @param <T>
  *            value type of return
  */
-public abstract class Feature<T> implements Configurable {
+public abstract class Feature<I, T> implements Configurable {
 
-	public abstract T perform(ServiceContext<?> ctx, Object... args) throws ModelException;
+	public T serve(I inputObject, Object... args) throws ModelException {
+
+		return perform(inputObject, args);
+	}
+
+	protected abstract T perform(I inputObject, Object... args) throws ModelException;
 
 	public static String getRegionId() {
 		return "Feature";
