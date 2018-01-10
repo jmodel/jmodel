@@ -14,9 +14,9 @@ import org.w3c.dom.NodeList;
 
 import com.github.jmodel.ModelException;
 import com.github.jmodel.api.analyzer.Analyzer;
-import com.github.jmodel.api.domain.Entity;
-import com.github.jmodel.api.domain.Field;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Entity;
+import com.github.jmodel.api.entity.Field;
+import com.github.jmodel.api.entity.Model;
 
 /**
  * Xml analyzer.

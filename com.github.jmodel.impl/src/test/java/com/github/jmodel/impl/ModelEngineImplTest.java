@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jmodel.FormatEnum;
 import com.github.jmodel.ModelBuilder;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Model;
 
 public class ModelEngineImplTest {
 

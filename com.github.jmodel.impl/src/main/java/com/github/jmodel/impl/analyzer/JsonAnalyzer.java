@@ -8,10 +8,10 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.jmodel.ModelException;
 import com.github.jmodel.api.analyzer.Analyzer;
-import com.github.jmodel.api.domain.Array;
-import com.github.jmodel.api.domain.Entity;
-import com.github.jmodel.api.domain.Field;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Array;
+import com.github.jmodel.api.entity.Entity;
+import com.github.jmodel.api.entity.Field;
+import com.github.jmodel.api.entity.Model;
 
 /**
  * Json analyzer.
