@@ -1,4 +1,4 @@
-package com.github.jmodel.api.utils;
+package com.github.jmodel.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,10 +11,11 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.jmodel.ModelException;
-import com.github.jmodel.api.domain.Array;
-import com.github.jmodel.api.domain.Entity;
-import com.github.jmodel.api.domain.Field;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.OperationEnum;
+import com.github.jmodel.api.entity.Array;
+import com.github.jmodel.api.entity.Entity;
+import com.github.jmodel.api.entity.Field;
+import com.github.jmodel.api.entity.Model;
 
 public class ModelHelper {
 

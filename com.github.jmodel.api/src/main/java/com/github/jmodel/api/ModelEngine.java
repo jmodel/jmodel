@@ -2,7 +2,7 @@ package com.github.jmodel.api;
 
 import com.github.jmodel.ModelException;
 import com.github.jmodel.api.analyzer.Analyzer;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Model;
 import com.github.jmodel.spi.ModelEngineFactory;
 
 /**

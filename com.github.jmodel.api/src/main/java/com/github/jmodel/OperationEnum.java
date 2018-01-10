@@ -1,4 +1,4 @@
-package com.github.jmodel.api.utils;
+package com.github.jmodel;
 
 /**
  * Operation enumeration.

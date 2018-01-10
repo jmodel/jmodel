@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import com.github.jmodel.api.ModelEngine;
 import com.github.jmodel.api.ModelEngineFactoryService;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Model;
 
 /**
  * Public API for generic model builder.

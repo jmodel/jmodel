@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.jmodel.ModelException;
-import com.github.jmodel.api.domain.Array;
-import com.github.jmodel.api.domain.Entity;
-import com.github.jmodel.api.domain.Field;
-import com.github.jmodel.api.domain.Model;
+import com.github.jmodel.api.entity.Array;
+import com.github.jmodel.api.entity.Entity;
+import com.github.jmodel.api.entity.Field;
+import com.github.jmodel.api.entity.Model;
 
 /**
  * Abstract class for {@code Analyzer}. An input object will be transformed to

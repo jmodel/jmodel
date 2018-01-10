@@ -1,4 +1,4 @@
-package com.github.jmodel.api.domain;
+package com.github.jmodel.api.entity;
 
 /**
  * Data type enumeration.
