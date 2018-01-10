@@ -1,5 +1,6 @@
 package com.github.jmodel.api.control;
 
+import com.github.jmodel.ModelException;
 import com.github.jmodel.config.Configurable;
 import com.github.jmodel.config.ConfigurationLoader;
 
@@ -26,17 +27,17 @@ public abstract class Service<T, R> implements Configurable {
 	 * @param path
 	 *            path
 	 * @return arbitrary object
-	 * @throws JappException
-	 *             JappException
+	 * @throws ModelException
+	 *             ModelException
 	 */
-	public T serve(ServiceContext<?> ctx, R request, String... path) {
+	public T serve(ServiceContext<?> ctx, R request, String... path) throws ModelException {
 
 		ctx.setConf(ConfigurationLoader.getInstance().getConfiguration());
 
 		return perform(ctx, request, path);
 	}
 
-	protected abstract T perform(ServiceContext<?> ctx, R request, String... path);
+	protected abstract T perform(ServiceContext<?> ctx, R request, String... path) throws ModelException;
 
 	public static String getRegionId() {
 		return "Service";

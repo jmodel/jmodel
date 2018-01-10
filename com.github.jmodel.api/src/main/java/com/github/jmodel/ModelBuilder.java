@@ -1,8 +1,5 @@
 package com.github.jmodel;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.github.jmodel.api.ModelEngine;
 import com.github.jmodel.api.ModelEngineFactoryService;
 import com.github.jmodel.api.entity.Model;
@@ -16,11 +13,6 @@ import com.github.jmodel.api.entity.Model;
 public class ModelBuilder {
 
 	/**
-	 * JDK Logger
-	 */
-	private final static Logger logger = Logger.getLogger(ModelBuilder.class.getName());
-
-	/**
 	 * Build generic model from the scratch. The input object should be in the
 	 * format specified by the first parameter.
 	 * 
@@ -30,6 +22,8 @@ public class ModelBuilder {
 	 *            input object
 	 * @param modelName
 	 *            model name
+	 * @param <T>
+	 *            type of input object
 	 * @return generic model
 	 * @throws ModelException
 	 *             model exception
@@ -52,6 +46,8 @@ public class ModelBuilder {
 	 *            extention format class
 	 * @param modelName
 	 *            model name
+	 * @param <T>
+	 *            type of input object
 	 * @return generic model
 	 * @throws ModelException
 	 *             model exception
@@ -60,8 +56,6 @@ public class ModelBuilder {
 			throws ModelException {
 
 		checkParameter(format, inputObj, extFormatClz);
-
-		logger.log(Level.INFO, () -> "Try to build generic model");
 
 		ModelEngine modelEngine = null;
 
@@ -85,6 +79,8 @@ public class ModelBuilder {
 	 *            the existing generic model instance
 	 * @param inputObj
 	 *            input object
+	 * @param <T>
+	 *            type of input object
 	 * @throws ModelException
 	 *             model exception
 	 */
@@ -104,6 +100,8 @@ public class ModelBuilder {
 	 *            input object
 	 * @param extFormatClz
 	 *            extention format class
+	 * @param <T>
+	 *            type of input object
 	 * @throws ModelException
 	 *             model exception
 	 */
@@ -115,8 +113,6 @@ public class ModelBuilder {
 		if (model == null) {
 			throw new ModelException("The generic model is null");
 		}
-
-		logger.log(Level.INFO, () -> "Try to update the generic model");
 
 		ModelEngine modelEngine = null;
 

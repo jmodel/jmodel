@@ -39,8 +39,11 @@ public abstract class Analyzer<T> {
 	 * Update generic model instance.
 	 * 
 	 * @param model
+	 *            the generic model
 	 * @param inputObject
+	 *            input object
 	 * @throws ModelException
+	 *             model exception
 	 */
 	public void update(Model model, T inputObject) throws ModelException {
 		setValueOfFields(model, new HashMap<String, Field>(), new HashMap<String, Model>(), inputObject);
@@ -60,6 +63,8 @@ public abstract class Analyzer<T> {
 	 *            help to set value
 	 * @param node
 	 *            a node
+	 * @throws ModelException
+	 *             model exception
 	 */
 	protected void setValueOfFields(final Model model, final Map<String, Field> fieldPathMap,
 			final Map<String, Model> modelPathMap, final T node) throws ModelException {

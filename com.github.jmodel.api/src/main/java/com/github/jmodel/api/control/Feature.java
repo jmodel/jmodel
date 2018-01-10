@@ -1,5 +1,6 @@
 package com.github.jmodel.api.control;
 
+import com.github.jmodel.ModelException;
 import com.github.jmodel.config.Configurable;
 
 /**
@@ -12,7 +13,7 @@ import com.github.jmodel.config.Configurable;
  */
 public abstract class Feature<T> implements Configurable {
 
-	public abstract T perform(ServiceContext<?> ctx, Object... args);
+	public abstract T perform(ServiceContext<?> ctx, Object... args) throws ModelException;
 
 	public static String getRegionId() {
 		return "Feature";
