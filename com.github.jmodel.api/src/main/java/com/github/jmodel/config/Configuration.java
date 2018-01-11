@@ -1,6 +1,7 @@
 package com.github.jmodel.config;
 
 import java.util.List;
+import java.util.Properties;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -43,6 +44,41 @@ public class Configuration {
 			}
 		}
 		return null;
+	}
+
+	public Properties getProperties(String regionId, String... itemId) {
+
+		Properties properties = new Properties();
+		if (regionList != null) {
+			Region region = regionList.stream().filter(it -> it.getId().equals(regionId)).findFirst().orElse(null);
+			if (region != null && region.getItemList() != null && itemId.length > 0) {
+				Item item = region.getItemList().stream().filter(it -> it.getId().equals(itemId[0])).findFirst()
+						.orElse(null);
+				if (item != null) {
+					if (itemId.length == 1 && item.getPropertyList() != null) {
+						for (Property property : item.getPropertyList()) {
+							properties.setProperty(property.getName(), property.getValue());
+						}
+						return properties;
+					} else {
+						for (int i = 1; item != null && i < itemId.length; i++) {
+							final String subItemId = itemId[i];
+							item = item.getItemList().stream().filter(it -> it.getId().equals(subItemId)).findFirst()
+									.orElse(null);
+						}
+
+						if (item != null && item.getPropertyList() != null) {
+							for (Property property : item.getPropertyList()) {
+								properties.setProperty(property.getName(), property.getValue());
+							}
+							return properties;
+						}
+
+					}
+				}
+			}
+		}
+		return properties;
 	}
 
 	public String getValue(String propertyName, String regionId, String... itemId) {

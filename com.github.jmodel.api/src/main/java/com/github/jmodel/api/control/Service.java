@@ -1,5 +1,7 @@
 package com.github.jmodel.api.control;
 
+import java.util.Properties;
+
 import com.github.jmodel.ModelException;
 import com.github.jmodel.config.Configurable;
 import com.github.jmodel.config.ConfigurationLoader;
@@ -16,6 +18,8 @@ import com.github.jmodel.config.ConfigurationLoader;
  *
  */
 public abstract class Service<T, R> implements Configurable {
+
+	private Properties properties;
 
 	/**
 	 * Perform service work.
@@ -38,6 +42,18 @@ public abstract class Service<T, R> implements Configurable {
 	}
 
 	protected abstract T perform(ServiceContext<?> ctx, R request, String... path) throws ModelException;
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public String getProperty(String key) {
+		return (String) properties.get(key);
+	}
 
 	public static String getRegionId() {
 		return "Service";
