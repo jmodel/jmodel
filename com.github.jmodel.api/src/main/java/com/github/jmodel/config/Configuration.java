@@ -31,6 +31,21 @@ public class Configuration {
 		this.regionList = regionList;
 	}
 
+	public Item getItem(String regionId, String itemId) {
+
+		if (regionList != null) {
+			Region region = regionList.stream().filter(it -> it.getId().equals(regionId)).findFirst().orElse(null);
+			if (region != null && region.getItemList() != null) {
+				Item item = region.getItemList().stream().filter(it -> it.getId().equals(itemId)).findFirst()
+						.orElse(null);
+				if (item != null) {
+					return item;
+				}
+			}
+		}
+		return null;
+	}
+
 	public String getValue(String regionId, String itemId) {
 
 		if (regionList != null) {
